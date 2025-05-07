@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { Link } from 'expo-router';
+import { router } from 'expo-router';
 
 export default function LoginScreen() {
   return (
@@ -15,7 +16,7 @@ export default function LoginScreen() {
         <TextInput style={styles.input} secureTextEntry placeholder="" placeholderTextColor="#aaa" />
       </View>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={() => router.push('/explanation')}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
