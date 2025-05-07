@@ -5,7 +5,6 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       {/* Header */}
-      
       <View style={styles.header}>
         <Image source={require('../assets/images/icon.png')} style={styles.icon} />
         <Text style={styles.headerText}>SecretSpot</Text>
@@ -17,7 +16,7 @@ export default function HomeScreen() {
         What do you want to do <Text style={styles.highlight}>today</Text>?
       </Text>
 
-      {/* Options */}
+      {/* Cards */}
       <ScrollView contentContainerStyle={styles.cards}>
         <TouchableOpacity style={styles.card}>
           <Image source={require('../assets/images/explore.png')} style={styles.cardImage} />
@@ -35,8 +34,13 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* Bottom Logo */}
-      <Image source={require('../assets/images/Logo.png')} style={styles.bottomLogo} />
+            {/* Bottom bar with logo */}
+        <View style={styles.footer}>
+            <View style={styles.logoWrapper}>
+                <Image source={require('../assets/images/Logo.png')} style={styles.bottomLogo} />
+            </View>
+        </View>
+
     </View>
   );
 }
@@ -47,28 +51,29 @@ const styles = StyleSheet.create({
     backgroundColor: '#1c1c1c',
     paddingTop: 50,
     paddingHorizontal: 20,
-    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   header: {
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 25,
   },
   icon: {
-    width: 24,
-    height: 24,
+    width: 28,
+    height: 28,
+    resizeMode: 'contain',
     tintColor: '#fff',
   },
   headerText: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
   },
   question: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 15,
+    textAlign: 'center',
     marginBottom: 20,
   },
   highlight: {
@@ -78,10 +83,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: 250,
-    height: 100,
-    backgroundColor: '#2a2a2a',
-    borderRadius: 12,
+    width: 270,
+    height: 90,
+    borderRadius: 14,
     borderWidth: 2,
     borderColor: '#9d4edd',
     marginBottom: 20,
@@ -92,19 +96,39 @@ const styles = StyleSheet.create({
   cardImage: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
-    borderRadius: 10,
+    borderRadius: 12,
     opacity: 0.8,
   },
   cardText: {
     color: '#fff',
     fontWeight: 'bold',
-    fontSize: 18,
+    fontSize: 17,
     zIndex: 1,
   },
-  bottomLogo: {
-    width: 60,
-    height: 60,
-    resizeMode: 'contain',
-    marginTop: 10,
+  footer: {
+    backgroundColor: '#fff',
+    height: 80,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    position: 'relative',
   },
+  
+  logoWrapper: {
+    position: 'absolute',
+    top: -30, // para que se superponga
+    backgroundColor: '#1c1c1c',
+    padding: 15,
+    borderRadius: 100,
+    borderWidth: 5,
+    borderColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  
+  bottomLogo: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
+  },  
 });
