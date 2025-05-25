@@ -1,70 +1,71 @@
-import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { Link } from 'expo-router';
-import { router } from 'expo-router';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScreen() {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/images/Logo.png')} style={styles.logo} />
+      <Image source={require('../../assets/images/Logo.png')} style={styles.logo} />
       <Text style={styles.title}>LOGIN</Text>
 
-      <View style={styles.inputBox}>
-        <Text style={styles.label}>EMAIL</Text>
-        <TextInput style={styles.input} placeholder="" placeholderTextColor="#aaa" />
-        <Text style={styles.label}>PASSWORD</Text>
-        <TextInput style={styles.input} secureTextEntry placeholder="" placeholderTextColor="#aaa" />
-      </View>
+      <View style={styles.form}>
+        <TextInput placeholder="EMAIL" style={styles.input} placeholderTextColor="#AAA" />
+        <TextInput placeholder="PASSWORD" secureTextEntry style={styles.input} placeholderTextColor="#AAA" />
+      </View> 
 
-      <TouchableOpacity style={styles.button} onPress={() => router.push('/explanation')}>
-        <Text style={styles.buttonText}>Login</Text>
+      <Text style={styles.footerText}>Don't have an account? <Text style={styles.link}>Create one</Text></Text>
+
+      <TouchableOpacity style={styles.button}>
+        <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>
-
-      <Text style={styles.bottomText}>
-        Don’t have an account? <Link href="/register"><Text style={styles.link}>Create one</Text></Link>
-      </Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#1c1c1c', alignItems: 'center', justifyContent: 'center' },
+  container: {
+    flex: 1,
+    backgroundColor: '#0D0D0D',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
   logo: {
-    width: 100,
-    height: 100,
-    resizeMode: 'contain',
+    width: 70,
+    height: 70,
     marginBottom: 20,
   },
-  title: { fontSize: 24, color: '#fff', marginBottom: 30 },
-  inputBox: {
-    width: '80%',
-    padding: 20,
-    borderRadius: 15,
-    backgroundColor: '#2a2a2a',
-    borderColor: '#9d4edd',
-    borderWidth: 2,
+  title: {
+    fontSize: 28,
+    color: '#FFFFFF',
+    fontWeight: '700',
+    marginBottom: 20,
   },
-  label: { color: '#fff', marginTop: 10 },
+  form: {
+    width: '100%',
+    marginBottom: 20,
+  },
   input: {
-    backgroundColor: '#444',
-    color: '#fff',
-    padding: 10,
+    backgroundColor: '#1C1C1C',
+    color: '#FFF',
+    padding: 14,
     borderRadius: 10,
-    marginTop: 5,
+    marginBottom: 12,
+  },
+  footerText: {
+    color: '#AAA',
+    marginBottom: 10,
+  },
+  link: {
+    color: '#A259FF',
+    textDecorationLine: 'underline',
   },
   button: {
-    marginTop: 20,
-    backgroundColor: '#9d4edd',
-    paddingVertical: 12,
-    paddingHorizontal: 40,
+    backgroundColor: '#A259FF',
+    paddingVertical: 14,
+    paddingHorizontal: 30,
     borderRadius: 10,
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFF',
     fontWeight: 'bold',
-    fontSize: 16,
-    textAlign: 'center',
   },
-  bottomText: { marginTop: 20, color: '#ccc' },
-  link: { color: '#9d4edd' },
 });
