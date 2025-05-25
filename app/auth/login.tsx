@@ -18,7 +18,7 @@ export default function LoginScreen() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.replace('/tabs/home'); // Cambia a tu pantalla principal después del login
+      router.replace('/tabs/home');
     } catch (error: any) {
       console.error(error);
       Alert.alert('Error al iniciar sesión', error.message);
@@ -28,8 +28,9 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image source={require('../../assets/images/Logo.png')} style={styles.logo} />
-        <Text style={styles.title}>LOGIN</Text>
+        <Image source={require('../../assets/images/LogoSinNombre.png')} style={styles.logo} />
+        <Text style={styles.title}>SecretSpot</Text>
+        <Text style={styles.subtitle}>Inicia sesión para continuar</Text>
 
         <View style={styles.card}>
           <Text style={styles.label}>EMAIL</Text>
@@ -51,12 +52,12 @@ export default function LoginScreen() {
           />
         </View>
 
-        <TouchableOpacity onPress={() => router.push('/auth/register')}>
-          <Text style={styles.footer}>Don’t have an account? Create one</Text>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Ingresar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ marginTop: 24 }} onPress={handleLogin}>
-          <Text style={styles.loginText}>LOGIN</Text>
+        <TouchableOpacity onPress={() => router.push('/auth/register')}>
+          <Text style={styles.footer}>¿No tienes cuenta? Crea una</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -77,31 +78,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: 90,
+    height: 130,
+    marginBottom: 12,
   },
   title: {
     color: '#FFFFFF',
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 24,
     letterSpacing: 1,
-    textAlign: 'center',
+    marginBottom: 4,
+  },
+  subtitle: {
+    color: '#A08EC2',
+    fontSize: 16,
+    marginBottom: 24,
   },
   card: {
     backgroundColor: '#6339B0',
     padding: 24,
     borderRadius: 16,
     width: '100%',
-    marginBottom: 32,
+    marginBottom: 24,
   },
   label: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 1,
-    textAlign: 'center',
     marginBottom: 6,
   },
   input: {
@@ -112,16 +115,21 @@ const styles = StyleSheet.create({
     color: '#FFF',
     marginBottom: 16,
   },
+  button: {
+    backgroundColor: '#A08EC2',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+    marginBottom: 16,
+  },
+  buttonText: {
+    color: '#211F22',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
   footer: {
     color: '#A08EC2',
     fontSize: 14,
     textAlign: 'center',
-    letterSpacing: 0.5,
-  },
-  loginText: {
-    color: '#A08EC2',
-    fontWeight: 'bold',
-    fontSize: 16,
-    letterSpacing: 1,
   },
 });

@@ -2,7 +2,7 @@ import { router } from 'expo-router';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/firebaseConfig'; // Ajusta la ruta si es necesario
+import { auth } from '../../firebase/firebaseConfig';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ export default function RegisterScreen() {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.replace('.././explanation'); // Redirección al completar registro
+      router.replace('.././explanation');
     } catch (error: any) {
       console.error(error);
       Alert.alert('Error al registrarse', error.message);
@@ -26,8 +26,9 @@ export default function RegisterScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Image source={require('../../assets/images/Logo.png')} style={styles.logo} />
-        <Text style={styles.title}>REGISTER</Text>
+        <Image source={require('../../assets/images/LogoSinNombre.png')} style={styles.logo} />
+        <Text style={styles.title}>SecretSpot</Text>
+        <Text style={styles.subtitle}>Empieza a explorar lo que otros no ven</Text>
 
         <View style={styles.card}>
           <Text style={styles.label}>EMAIL</Text>
@@ -49,8 +50,12 @@ export default function RegisterScreen() {
           />
         </View>
 
-        <TouchableOpacity onPress={handleRegister}>
-          <Text style={styles.footer}>Create my account</Text>
+        <TouchableOpacity style={styles.button} onPress={handleRegister}>
+          <Text style={styles.buttonText}>Crear cuenta</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => router.replace('/auth/login')}>
+          <Text style={styles.footer}>¿Ya tienes cuenta? Inicia sesión</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -71,31 +76,33 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 20,
+    width: 90,
+    height: 130,
+    marginBottom: 12,
   },
   title: {
     color: '#FFFFFF',
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 24,
     letterSpacing: 1,
-    textAlign: 'center',
+    marginBottom: 4,
+  },
+  subtitle: {
+    color: '#A08EC2',
+    fontSize: 16,
+    marginBottom: 24,
   },
   card: {
     backgroundColor: '#6339B0',
     padding: 24,
     borderRadius: 16,
     width: '100%',
-    marginBottom: 32,
+    marginBottom: 24,
   },
   label: {
     color: '#FFFFFF',
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: '600',
-    letterSpacing: 1,
-    textAlign: 'center',
     marginBottom: 6,
   },
   input: {
@@ -106,10 +113,21 @@ const styles = StyleSheet.create({
     color: '#FFF',
     marginBottom: 16,
   },
+  button: {
+    backgroundColor: '#A08EC2',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 10,
+    marginBottom: 16,
+  },
+  buttonText: {
+    color: '#211F22',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
   footer: {
     color: '#A08EC2',
     fontSize: 14,
     textAlign: 'center',
-    letterSpacing: 0.5,
   },
 });
