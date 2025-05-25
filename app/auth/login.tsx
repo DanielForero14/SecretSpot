@@ -1,73 +1,80 @@
-// Navegación entre pantallas
 import { useRouter } from 'expo-router';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
+import { useState } from 'react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/firebaseConfig';
 
-// Componentes nativos de React Native
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
-// Componente principal: pantalla de login
 export default function LoginScreen() {
-  const router = useRouter(); // Hook para cambiar de pantalla
+  const router = useRouter();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Por favor ingresa tu correo y contraseña.');
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      router.replace('/tabs/home'); // Cambia a tu pantalla principal después del login
+    } catch (error: any) {
+      console.error(error);
+      Alert.alert('Error al iniciar sesión', error.message);
+    }
+  };
 
   return (
-    // Vista principal (pantalla completa, fondo oscuro)
     <View style={styles.container}>
-      {/* Contenedor del contenido centrado y con ancho fijo */}
       <View style={styles.content}>
-        
-        {/* Logo grande */}
         <Image source={require('../../assets/images/Logo.png')} style={styles.logo} />
-
-        {/* Título "LOGIN" */}
         <Text style={styles.title}>LOGIN</Text>
 
-        {/* Tarjeta morada con campos de formulario */}
         <View style={styles.card}>
-          {/* Texto encima del campo de email */}
           <Text style={styles.label}>EMAIL</Text>
-          {/* Campo de entrada de email */}
           <TextInput
-            placeholder=""
             style={styles.input}
             placeholderTextColor="#AAA"
             autoCapitalize="none"
+            value={email}
+            onChangeText={setEmail}
           />
 
-          {/* Texto encima del campo de password */}
           <Text style={styles.label}>PASSWORD</Text>
-          {/* Campo de entrada de contraseña */}
           <TextInput
-            placeholder=""
             style={styles.input}
             placeholderTextColor="#AAA"
             secureTextEntry
+            value={password}
+            onChangeText={setPassword}
           />
         </View>
 
-        {/* Enlace para ir a registro */}
         <TouchableOpacity onPress={() => router.push('/auth/register')}>
           <Text style={styles.footer}>Don’t have an account? Create one</Text>
         </TouchableOpacity>
 
-        {/* Botón de login (solo visual por ahora) */}
-        <TouchableOpacity style={{ marginTop: 24 }}>
+        <TouchableOpacity style={{ marginTop: 24 }} onPress={handleLogin}>
           <Text style={styles.loginText}>LOGIN</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1, // Ocupa toda la pantalla
-    backgroundColor: '#211F22', // Fondo oscuro
-    justifyContent: 'center', // Centrado vertical
-    alignItems: 'center',     // Centrado horizontal
-    padding: 24,              // Espacio interior general
+    flex: 1,
+    backgroundColor: '#211F22',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
   },
   content: {
     width: '100%',
-    maxWidth: 360, // Ancho máximo como en móvil
-    alignItems: 'center', // Centrado interno
+    maxWidth: 360,
+    alignItems: 'center',
   },
   logo: {
     width: 200,
@@ -83,13 +90,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   card: {
-    backgroundColor: '#6339B0', // Fondo morado
+    backgroundColor: '#6339B0',
     padding: 24,
     borderRadius: 16,
     width: '100%',
     marginBottom: 32,
   },
-  label: {  //Titulos Email / Password
+  label: {
     color: '#FFFFFF',
     fontSize: 20,
     fontWeight: '600',
@@ -98,11 +105,11 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   input: {
-    backgroundColor: '#211F22', // Fondo de input oscuro
+    backgroundColor: '#211F22',
     paddingVertical: 12,
     paddingHorizontal: 14,
     borderRadius: 10,
-    color: '#FFF',              // Texto blanco
+    color: '#FFF',
     marginBottom: 16,
   },
   footer: {
