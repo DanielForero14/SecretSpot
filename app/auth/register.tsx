@@ -1,77 +1,107 @@
+// Componentes nativos de React Native
+import { router } from 'expo-router';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+
+// Componente principal: pantalla de registro
 export default function RegisterScreen() {
   return (
+    // Vista principal (pantalla completa, fondo oscuro)
     <View style={styles.container}>
-      <Image source={require('../../assets/images/Logo.png')} style={styles.logo} />
-      <Text style={styles.title}>REGISTER</Text>
+      {/* Contenedor del contenido centrado y con ancho fijo */}
+      <View style={styles.content}>
+        
+        {/* Logo grande */}
+        <Image source={require('../../assets/images/Logo.png')} style={styles.logo} />
 
-      <View style={styles.form}>
-        <TextInput
-          placeholder="EMAIL"
-          style={styles.input}
-          placeholderTextColor="#AAA"
-          autoCapitalize="none"
-        />
-        <TextInput
-          placeholder="PASSWORD"
-          secureTextEntry
-          style={styles.input}
-          placeholderTextColor="#AAA"
-        />
+        {/* Título "REGISTER" */}
+        <Text style={styles.title}>REGISTER</Text>
+
+        {/* Tarjeta morada con campos de formulario */}
+        <View style={styles.card}>
+          {/* Texto encima del campo de email */}
+          <Text style={styles.label}>EMAIL</Text>
+          {/* Campo de entrada de email */}
+          <TextInput
+            placeholder=""
+            style={styles.input}
+            placeholderTextColor="#AAA"
+            autoCapitalize="none"
+          />
+
+          {/* Texto encima del campo de password */}
+          <Text style={styles.label}>PASSWORD</Text>
+          {/* Campo de entrada de contraseña */}
+          <TextInput
+            placeholder=""
+            style={styles.input}
+            placeholderTextColor="#AAA"
+            secureTextEntry
+          />
+        </View>
+
+        {/* Botón de registro (solo visual por ahora) */}
+        <TouchableOpacity onPress={() => router.replace('.././explanation')}>
+  <Text style={styles.footer}>Create my account</Text>
+</TouchableOpacity>
+
       </View>
-
-      <Text style={styles.footerText}>Create my account!</Text>
-
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>REGISTER</Text>
-      </TouchableOpacity>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#0D0D0D',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: 20,
+    flex: 1, // Ocupa toda la pantalla
+    backgroundColor: '#211F22', // Fondo oscuro
+    justifyContent: 'center', // Centrado vertical
+    alignItems: 'center',     // Centrado horizontal
+    padding: 24,              // Espacio interior general
+  },
+  content: {
+    width: '100%',
+    maxWidth: 360, // Ancho máximo como en móvil
+    alignItems: 'center', // Centrado interno
   },
   logo: {
-    width: 70,
-    height: 70,
+    width: 200,
+    height: 200,
     marginBottom: 20,
   },
   title: {
-    fontSize: 28,
     color: '#FFFFFF',
-    fontWeight: '700',
-    marginBottom: 20,
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 24,
+    letterSpacing: 1,
+    textAlign: 'center',
   },
-  form: {
+  card: {
+    backgroundColor: '#6339B0', // Fondo morado
+    padding: 24,
+    borderRadius: 16,
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 32,
+  },
+  label: { // Títulos Email / Password
+    color: '#FFFFFF',
+    fontSize: 20,
+    fontWeight: '600',
+    letterSpacing: 1,
+    textAlign: 'center',
+    marginBottom: 6,
   },
   input: {
-    backgroundColor: '#1C1C1C',
-    color: '#FFF',
-    padding: 14,
+    backgroundColor: '#211F22', // Fondo de input oscuro
+    paddingVertical: 12,
+    paddingHorizontal: 14,
     borderRadius: 10,
-    marginBottom: 12,
+    color: '#FFF',              // Texto blanco
+    marginBottom: 16,
   },
-  footerText: {
-    color: '#AAA',
-    marginBottom: 10,
-  },
-  button: {
-    backgroundColor: '#A259FF',
-    paddingVertical: 14,
-    paddingHorizontal: 30,
-    borderRadius: 10,
-  },
-  buttonText: {
-    color: '#FFF',
-    fontWeight: 'bold',
+  footer: {
+    color: '#A08EC2',
+    fontSize: 14,
+    textAlign: 'center',
+    letterSpacing: 0.5,
   },
 });
