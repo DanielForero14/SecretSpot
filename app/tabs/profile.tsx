@@ -1,39 +1,51 @@
+import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 
 export default function ProfileScreen() {
-  const [activeTab, setActiveTab] = useState<'gallery' | 'visited' | 'saved'>('gallery');
+  const [activeTab, setActiveTab] = useState<'gallery' | 'visited' | 'saved'>(
+    'gallery'
+  );
+  const router = useRouter();
 
   return (
     <ScrollView style={styles.container}>
-      {/* Encabezado */}
       <View style={styles.header}>
-        <Image source={require('../../assets/images/icon.png')} style={styles.avatar} />
+        <Image
+          source={require('../../assets/images/icon.png')}
+          style={styles.avatar}
+        />
         <View>
           <Text style={styles.username}>Fandel_pollo</Text>
           <Text style={styles.name}>Antonio</Text>
         </View>
-        <Text style={styles.heart}>♡</Text>
+
+        {/* Corazón arriba a la derecha con posición absoluta */}
+        <TouchableOpacity
+          onPress={() => router.push('../notify')}
+          style={styles.heartButton}
+        >
+          <Text style={styles.heart}>♡</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Stats */}
       <View style={styles.stats}>
         <Text style={styles.statText}>3{"\n"}Lugares</Text>
         <Text style={styles.statText}>2,000{"\n"}Exploradores</Text>
         <Text style={styles.statText}>180{"\n"}Guardados</Text>
       </View>
 
-      {/* Descripción */}
-      <Text style={styles.description}>Antonio{"\n"}Colombia - Bogotá{"\n"}fan del pollo {"<3"}</Text>
+      <Text style={styles.description}>
+        Antonio{"\n"}Colombia - Bogotá{"\n"}fan del pollo {"<3"}
+      </Text>
 
-      {/* Botones */}
       <View style={styles.buttons}>
         <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Editar</Text>
@@ -43,31 +55,51 @@ export default function ProfileScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Tabs tipo Instagram */}
       <View style={styles.tabs}>
         <TouchableOpacity onPress={() => setActiveTab('gallery')}>
-          <Text style={[styles.tab, activeTab === 'gallery' && styles.tabActive]}>▦</Text>
+          <Text
+            style={[styles.tab, activeTab === 'gallery' && styles.tabActive]}
+          >
+            ▦
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setActiveTab('visited')}>
-          <Text style={[styles.tab, activeTab === 'visited' && styles.tabActive]}>🏠</Text>
+          <Text
+            style={[styles.tab, activeTab === 'visited' && styles.tabActive]}
+          >
+            🏠
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => setActiveTab('saved')}>
-          <Text style={[styles.tab, activeTab === 'saved' && styles.tabActive]}>📍</Text>
+          <Text style={[styles.tab, activeTab === 'saved' && styles.tabActive]}>
+            📍
+          </Text>
         </TouchableOpacity>
       </View>
 
-      {/* Contenido según pestaña activa */}
       {activeTab === 'gallery' && (
         <View style={styles.gallery}>
-          <Image source={require('../../assets/images/photos.png')} style={styles.photo} />
-          <Image source={require('../../assets/images/photos.png')} style={styles.photo} />
-          <Image source={require('../../assets/images/photos.png')} style={styles.photo} />
+          <Image
+            source={require('../../assets/images/photos.png')}
+            style={styles.photo}
+          />
+          <Image
+            source={require('../../assets/images/photos.png')}
+            style={styles.photo}
+          />
+          <Image
+            source={require('../../assets/images/photos.png')}
+            style={styles.photo}
+          />
         </View>
       )}
 
       {activeTab === 'visited' && (
         <View style={styles.card}>
-          <Image source={require('../../assets/images/photos.png')} style={styles.cardImage} />
+          <Image
+            source={require('../../assets/images/photos.png')}
+            style={styles.cardImage}
+          />
           <View style={styles.cardTextContainer}>
             <Text style={styles.cardTitle}>Party central park</Text>
             <Text style={styles.cardDate}>14 - october - 2017</Text>
@@ -78,7 +110,10 @@ export default function ProfileScreen() {
 
       {activeTab === 'saved' && (
         <View style={styles.card}>
-          <Image source={require('../../assets/images/photos.png')} style={styles.cardImage} />
+          <Image
+            source={require('../../assets/images/photos.png')}
+            style={styles.cardImage}
+          />
           <View style={styles.cardTextContainer}>
             <Text style={styles.cardTitle}>Hidden café in Bogotá</Text>
             <Text style={styles.cardDate}>2 - may - 2025</Text>
@@ -100,6 +135,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
+    position: 'relative', // para el botón absoluto
   },
   avatar: {
     width: 50,
@@ -116,10 +152,15 @@ const styles = StyleSheet.create({
     color: '#B8B8B8',
     fontSize: 14,
   },
+  heartButton: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    padding: 8,
+  },
   heart: {
     color: '#FFF',
-    fontSize: 22,
-    marginLeft: 'auto',
+    fontSize: 24,
   },
   stats: {
     flexDirection: 'row',
@@ -176,34 +217,36 @@ const styles = StyleSheet.create({
   photo: {
     width: 100,
     height: 100,
-    borderRadius: 10,
+    borderRadius: 12,
   },
   card: {
-    backgroundColor: '#1A1A1A',
+    backgroundColor: '#6339B0',
     borderRadius: 12,
+    marginBottom: 16,
+    flexDirection: 'row',
     overflow: 'hidden',
-    marginBottom: 24,
   },
   cardImage: {
-    width: '100%',
-    height: 200,
+    width: 80,
+    height: 80,
   },
   cardTextContainer: {
     padding: 12,
+    flex: 1,
   },
   cardTitle: {
     color: '#FFF',
+    fontSize: 18,
     fontWeight: 'bold',
-    fontSize: 16,
+    marginBottom: 4,
   },
   cardDate: {
-    color: '#BBB',
+    color: '#999',
     fontSize: 14,
-    marginTop: 2,
+    marginBottom: 4,
   },
   cardLocation: {
     color: '#6339B0',
-    marginTop: 4,
-    fontWeight: '600',
+    fontSize: 14,
   },
 });

@@ -17,7 +17,7 @@ export default function CreateEventScreen() {
   const [eventTime, setEventTime] = useState('');
   const [eventLocation, setEventLocation] = useState('');
   const [coverImageUri, setCoverImageUri] = useState(
-    '../../assets/images/photos.png' // Puedes cambiar esto por carga de imagen en el futuro
+    '../../assets/images/photos.png'
   );
 
   const handleCreateEvent = () => {
@@ -35,13 +35,18 @@ export default function CreateEventScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.username}>Fandel_pollo</Text>
-        <Text style={styles.heart}>♡</Text>
+
+        {/* Corazón arriba a la derecha con posición absoluta */}
+        <TouchableOpacity
+          onPress={() => router.push('/notify')}
+          style={styles.heartButton}
+        >
+          <Text style={styles.heart}>♡</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Formulario */}
       <Text style={styles.label}>Event name:</Text>
       <TextInput
         style={styles.input}
@@ -104,15 +109,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 24,
+    position: 'relative', // para el absoluto dentro
   },
   username: {
     color: '#FFF',
     fontWeight: 'bold',
     fontSize: 16,
   },
+  heartButton: {
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    padding: 8,
+  },
   heart: {
-    marginLeft: 'auto',
-    fontSize: 20,
+    fontSize: 24,
     color: '#FFF',
   },
   label: {
@@ -122,7 +133,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   input: {
-    backgroundColor: 'rgba(99, 57, 176, 0.17)', // 17% opacity del morado 6339B0
+    backgroundColor: 'rgba(99, 57, 176, 0.17)',
     color: '#FFF',
     borderRadius: 8,
     paddingHorizontal: 14,
@@ -130,14 +141,14 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   button: {
-    backgroundColor: '#6339B0',
+    backgroundColor: '#A08EC2',
     paddingVertical: 14,
     alignItems: 'center',
-    borderRadius: 10,
+    borderRadius: 12,
     marginTop: 12,
   },
   buttonText: {
-    color: '#FFF',
+    color: '#211F22',
     fontSize: 16,
     fontWeight: 'bold',
     letterSpacing: 1,

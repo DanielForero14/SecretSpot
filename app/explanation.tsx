@@ -82,14 +82,14 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   button: {
-    backgroundColor: '#6339B0',
-    paddingVertical: 12,
+    backgroundColor: '#A08EC2',
+    paddingVertical: 14,
     paddingHorizontal: 32,
-    borderRadius: 8,
+    borderRadius: 12,
     marginBottom: 20,
   },
   buttonText: {
-    color: '#FFF',
+    color: '#211F22',
     fontWeight: 'bold',
     fontSize: 16,
     letterSpacing: 1,
@@ -105,6 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#444',
   },
   dotActive: {
-    backgroundColor: '#6339B0',
+    backgroundColor: '#A08EC2',
   },
 });
