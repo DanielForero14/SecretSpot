@@ -2,7 +2,8 @@ import { router } from 'expo-router';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View, Alert } from 'react-native';
 import { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../firebase/firebaseConfig';
+import { auth, db } from '../../firebase/firebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -15,8 +16,18 @@ export default function RegisterScreen() {
     }
 
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      router.replace('.././explanation');
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      await setDoc(doc(db, 'users', uid), {
+        username: email.split('@')[0],
+        displayName: '',
+        description: '',
+        location: '',
+        profilePic: '',
+      });
+
+      router.replace('/explanation');
     } catch (error: any) {
       console.error(error);
       Alert.alert('Error al registrarse', error.message);
