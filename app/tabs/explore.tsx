@@ -57,7 +57,7 @@ export default function ExploreScreen() {
         customMapStyle={betterDarkStyle}
         showsUserLocation
       >
-        {/* Puedes agregar más marcadores si lo deseas */}
+        
         <Marker
           coordinate={{
             latitude: location.coords.latitude,
@@ -70,7 +70,7 @@ export default function ExploreScreen() {
   );
 }
 
-// 🎨 Estilo del mapa oscuro legible
+//  Estilo del mapa oscuro legible
 const betterDarkStyle = [
   {
     elementType: 'geometry',
@@ -117,3 +117,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
